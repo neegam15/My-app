@@ -11,53 +11,37 @@ const Container = styled.div`
 
 
 
-const api = `http://localhost:8800/api/videos/random`;
+// const api = `http://localhost:8800/api/videos/random`;
 
 
 
-const Home = () => {
+const Home = ({type}) => {
     const [videos, setVideos] = useState([]);
   
-    // useEffect(() => {
-    //   const fetchVideos = async () => {
-    //     const res = await api.get(`/videos/random`).then(res => {
-    //       console.log(res.data)
-    //   }).catch(err => {
-    //       // Handle error
-    //       console.log(err);
-    //   });
-    //     // setVideos(res.data);
-    //   };
-    //   fetchVideos();
-    // }, );
-
     useEffect(() => {
-      axios.get(api).then(res => {
-              console.log(res.data)
-          }).catch(err => {
-              // Handle error
-              console.log(err);
-          });
-    }, []);
+      const fetchVideos = async () => {
+        const res = await axios.get(`http://localhost:8800/api/videos/${type}`)
+        setVideos(res.data);
+      };
+      fetchVideos();
+    }, [type]);
+
+    // useEffect(() => {
+    //   axios.get(api).then(res => {
+    //           console.log(res.data)
+    //       }).catch(err => {
+    //           // Handle error
+    //           console.log(err);
+    //       });
+    // }, []);
   
 
 
     return (
         <Container>
-
-{/* {videos.map((video) => (
-      //   <>
-      //   <h1>{video._id}</h1>
-      //   <h1>{video.userId}</h1>
-      //   <h1>{video.title}</h1>
-      // </>
-      <Card type="trend"/>
-      ))}  */}
-            <>
-            <h1>Dhjfd</h1>
-            </>
-            
-
+{videos.map((video) => (
+        <Card key={video._id} video={video}/>
+      ))}
         </Container>
       );
     };

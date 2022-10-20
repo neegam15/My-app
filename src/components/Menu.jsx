@@ -18,6 +18,7 @@ import ReportIcon from '@mui/icons-material/Report';
 import HelpCenterIcon from '@mui/icons-material/HelpCenter';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Container = styled.div`
     flex: 1;
@@ -86,6 +87,9 @@ const Title = styled.h2`
 
 
 const Menu = ({darkMode, setDarkMode}) => {
+
+    const {currentUser} = useSelector(state=>state.user);
+
         return (
             <Container>
                 <Wrapper>
@@ -121,6 +125,8 @@ const Menu = ({darkMode, setDarkMode}) => {
                         History
                     </Item>
                     <Hr />
+                    {!currentUser &&
+                     <>
                     <Login>
                        Sign in to like videos, comment and subscribe.
                        <Link to="signin" style={{ textDecoration: "none" }}>
@@ -130,7 +136,7 @@ const Menu = ({darkMode, setDarkMode}) => {
                         </Button> 
                        </Link>
                     </Login>
-                    <Hr/>
+                    <Hr /> </>}
                     <Title>
                        BEST OF NEEGAM YOUTUBE
                     </Title>
